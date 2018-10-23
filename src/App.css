@@ -1,14 +1,16 @@
-
-
-#body {
+#root {
   font-family: 'Fira Mono', monospace;
   font-size: 9px;
+  background-color: #f1f1f1;
+  margin: 0;
+}
+
+#fileInput {
+  position: absolute;
 }
 
 #infoView {
-  font-family: 'Fira Mono', monospace;
   text-align: right;
-  font-size: 9px;
   position: absolute;
   top: 2px;
   right: 9px;
