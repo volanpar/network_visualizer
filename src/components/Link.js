@@ -4,13 +4,13 @@ import { LINEWIDTH_OPACITY, LINEWIDTH_OPACITY_FOCUS, LINEWIDTH, CLR_LINK } from 
 const Link = props => {
     const { fromPos, toPos, fields, focused } = props;
 
-    var opacity = focused ? LINEWIDTH_OPACITY_FOCUS : LINEWIDTH_OPACITY;
+    var linewidth = focused ? 0.9 : 0.1;
     var text = fields.hasOwnProperty("__show") ? fields.__show : "";
 
     let style = {
         stroke: CLR_LINK,
-        strokeWidth: LINEWIDTH,
-        opacity: opacity,
+        strokeWidth: linewidth,
+        opacity: 1,
     }
     
 
