@@ -204,9 +204,8 @@ class App extends Component {
     links = links.map(link => {
       let fromPos = nodePositions[link.source];
       let toPos = nodePositions[link.target];
-      let label = link.__show;
       let focused = this.state.focusedNodes[link.source] || this.state.focusedNodes[link.target];
-      return <Link key={link.source + ":" + link.target} fromPos={fromPos} toPos={toPos} label={label} focused={focused} />;
+      return <Link key={link.source + ":" + link.target} fromPos={fromPos} toPos={toPos} fields={link} focused={focused} />;
     });
 
     // return all dom objects

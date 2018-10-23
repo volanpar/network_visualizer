@@ -23,10 +23,12 @@ const Node = props => {
   }
 
   // text
-  let text_style = {};
-  let text = <text key={id+"_text"} x={x} y={y} dy={-12} text-anchor={"middle"} style={text_style}/> 
+  var font_weight = focused ? "bold" : "normal";
+  let text_style = {
+    "fill": CLR_LINK_TEXT, "font-weight": font_weight};
+  let text = <text key={id+"_text"} x={x} y={y} dy={-12} text-anchor={"middle"} style={text_style}>{id}</text> 
 
-  return [<rect key={id} x={rect_x} y={rect_y} width={width} height={height} rx={rx} ry={ry} style={style} onClick={onNodeClicked} />, stroke_rect]
+  return [<rect key={id} x={rect_x} y={rect_y} width={width} height={height} rx={rx} ry={ry} style={style} onClick={onNodeClicked} />, stroke_rect, text]
 }
 
 export default Node;
