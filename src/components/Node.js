@@ -19,7 +19,7 @@ const Node = props => {
     let gap = N_WIDTH_FOCUS - N_WIDTH;
     let rect_x2 = rect_x - gap/2;
     let rect_y2 = rect_y - gap/2;
-    stroke_rect = <rect key={id + "_stroke"} x={rect_x2} y={rect_y2} width={N_WIDTH_FOCUS} height={N_WIDTH_FOCUS} rx={N_CORNER+2} ry={N_CORNER+2} style={style} />
+    stroke_rect = <rect key={id + "_stroke"} x={rect_x2} y={rect_y2} width={N_WIDTH_FOCUS} height={N_WIDTH_FOCUS} rx={N_CORNER+2} ry={N_CORNER+2} style={style} onClick={onNodeClicked}/>
   }
 
   // text
