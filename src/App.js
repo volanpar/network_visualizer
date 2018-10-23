@@ -179,6 +179,7 @@ class App extends Component {
 
   // RENDERING
 
+
   renderNetwork() {
     if (!this.state.currentNetwork) {
       return;
@@ -209,7 +210,7 @@ class App extends Component {
     });
 
     // return all dom objects
-    return nodes.concat(links);
+    return links.concat(nodes);
   }
 
   renderInfoView() {
