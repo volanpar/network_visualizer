@@ -178,8 +178,6 @@ class App extends Component {
 
 
   // RENDERING
-
-
   renderNetwork() {
     if (!this.state.currentNetwork) {
       return;
@@ -197,7 +195,7 @@ class App extends Component {
       let id = node.id;
       let position = nodePositions[id];
       let focused = this.state.focusedNodes[id];
-      return <Node key={id} id={id} position={position} focused={focused} onNodeClicked={_ => this.onNodeClicked(id)} />
+      return <Node key={id} position={position} fields={node} focused={focused} onNodeClicked={_ => this.onNodeClicked(id)} />
     });
 
     // convert links to dom objects
