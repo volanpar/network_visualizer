@@ -2,34 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import InfoView from './components/InfoView';
 import Node from "./components/Node";
+import {WIDTH, HEIGHT} from "./Constants";
 
-const WIDTH = window.innerWidth * 10;
-const HEIGHT = window.innerHeight * 10;
-
-const CLR_BACKGROUND = "#f1f1f1";
-
-const CLR_NODE = "#24628c";
-const CLR_NODE_ACTIVATED = "red";
-const CLR_INPUT_NODE = "#258c8c";
-const CLR_OUTPUT_NODE = "#8c2488";
-const CLR_REWARD_NODE = "#8c8c24";
-
-const CLR_LINK = "#505a60";
-const CLR_LINK_TEXT = "#444444";
-
-const N_CORNER = 3; // rounded corner
-const N_WIDTH = 12; // NODE width
-const N_WIDTH_FOCUS = 18; // when focused
-const N_FONT_SIZE = 8;
-
-const INFO_CORNER = 6; // rounded corner background
-const INFO_GAP_N = 28; // gap between node/synapse and info window
-const INFO_GAP_E = 18; // gap between node/synapse and info window
-
-const LINEWIDTH = 1.0;
-const LINEWIDTH_OPACITY = 0.1;
-const LINEWIDTH_OPACITY_FOCUS = 0.6;
-const LINK_FONT_SIZE = 7;
 
 class App extends Component {
 
@@ -50,12 +24,13 @@ class App extends Component {
         n_nodes_layer: this.default_n_node_layer
       },
       currentNetwork: null,
-      focusedNodes: []
+      focusedNodes: {}
     }
 
     this.onFileUpdated = this.onFileUpdated.bind(this);
     this.parseMeta = this.parseMeta.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.onNodeClicked = this.onNodeClicked.bind(this);
   }
 
   componentWillMount() {
@@ -88,7 +63,7 @@ class App extends Component {
       let meta = this.parseMeta(data.meta);
       let sequence = data.sequence;
       let currentNetwork = sequence[0];
-      let focusedNodes = [];
+      let focusedNodes = {};
 
       // set new state
       this.setState(_ => {
@@ -185,6 +160,21 @@ class App extends Component {
     return positions;
   }
 
+  onNodeClicked(id) {
+    let focused = this.state.focusedNodes[id];
+    if (!focused) {
+      this.setState(prevState => {
+        prevState.focusedNodes[id] = true;
+        return prevState
+      })
+    } else {
+      this.setState(prevState => {
+        prevState.focusedNodes[id] = false;
+        return prevState
+      })
+    }
+  }
+
 
   // RENDERING
 
@@ -200,7 +190,8 @@ class App extends Component {
     return nodes.map(node => {
       let id = node.id;
       let position = nodePositions[id];
-      return <Node key={id} id={id} position={position} />
+      let focused = this.state.focusedNodes[id];
+      return <Node key={id} id={id} position={position} focused={focused} onNodeClicked={_ => this.onNodeClicked(id)} />
     });
   }
 
