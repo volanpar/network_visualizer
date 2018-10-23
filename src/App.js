@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import InfoView from './components/InfoView';
 import Node from "./components/Node";
-import {WIDTH, HEIGHT} from "./Constants";
+import Link from "./components/Link";
+import { WIDTH, HEIGHT } from "./Constants";
 
 
 class App extends Component {
@@ -178,21 +179,37 @@ class App extends Component {
 
   // RENDERING
 
-  renderNodes() {
+  renderNetwork() {
     if (!this.state.currentNetwork) {
       return;
     }
 
+    // extract nodes and links from network
     let nodes = this.state.currentNetwork.nodes;
+    let links = this.state.currentNetwork.links;
 
+    // calculate positions of all nodes
     let nodePositions = this.calculate_node_coordinates(nodes);
 
-    return nodes.map(node => {
+    // convert nodes to dom objects
+    nodes = nodes.map(node => {
       let id = node.id;
       let position = nodePositions[id];
       let focused = this.state.focusedNodes[id];
       return <Node key={id} id={id} position={position} focused={focused} onNodeClicked={_ => this.onNodeClicked(id)} />
     });
+
+    // convert links to dom objects
+    links = links.map(link => {
+      let fromPos = nodePositions[link.source];
+      let toPos = nodePositions[link.target];
+      let label = link.__show;
+      let focused = this.state.focusedNodes[link.source] || this.state.focusedNodes[link.target];
+      return <Link key={link.source + ":" + link.target} fromPos={fromPos} toPos={toPos} label={label} focused={focused} />;
+    });
+
+    // return all dom objects
+    return nodes.concat(links);
   }
 
   renderInfoView() {
@@ -208,7 +225,7 @@ class App extends Component {
         <input type="file" id="fileInput" onChange={this.onFileUpdated} />
         {this.renderInfoView()}
         <svg width={WIDTH} height={HEIGHT}>
-          {this.renderNodes()}
+          {this.renderNetwork()}
         </svg>
       </div>
     );
