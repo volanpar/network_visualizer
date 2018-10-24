@@ -195,7 +195,12 @@ class App extends Component {
       let id = node.id;
       let position = nodePositions[id];
       let focused = this.state.focusedNodes[id];
-      return <Node key={id} position={position} fields={node} focused={focused} onNodeClicked={_ => this.onNodeClicked(id)} />
+      return <Node
+        key={id}
+        position={position}
+        node={node}
+        focused={focused}
+        onNodeClicked={_ => this.onNodeClicked(id)} />
     });
 
     // convert links to dom objects
@@ -203,7 +208,11 @@ class App extends Component {
       let fromPos = nodePositions[link.source];
       let toPos = nodePositions[link.target];
       let focused = this.state.focusedNodes[link.source] || this.state.focusedNodes[link.target];
-      return <Link key={link.source + ":" + link.target} fromPos={fromPos} toPos={toPos} fields={link} focused={focused} />;
+      return <Link
+        key={link.source + ":" + link.target}
+        fromPos={fromPos} toPos={toPos}
+        link={link}
+        focused={focused} />;
     });
 
     // return all dom objects

@@ -1,58 +1,103 @@
 import React from 'react';
-import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_BACKGROUND, CLR_NODE, CLR_INPUT_NODE } from '../Constants';
+import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_BACKGROUND } from '../Constants';
 import { get_node_color } from '../Color';
+import { renderHoverView } from './HoverView';
 
-const Node = props => {
-  const { position, fields, focused, onNodeClicked } = props;
-  const { x, y } = position;
-  const width = N_WIDTH;
-  const height = N_WIDTH;
-  const rx = N_CORNER;
-  const ry = N_CORNER;
+class Node extends React.Component {
 
-  let stroke_rect = null;
-  let rect_x = x - (N_WIDTH / 2), rect_y = y - (N_WIDTH / 2);
+  constructor(props) {
+    super(props);
+    this.onNodeOver = this.onNodeOver.bind(this);
+    this.onNodeOut = this.onNodeOut.bind(this);
 
-  // rect
-  let rect = <rect
-    key={fields.id + "_rect"}
-    x={rect_x} y={rect_y}
-    width={width} height={height}
-    rx={rx} ry={ry}
-    style={{
-      fill: get_node_color(fields),
-    }}
-    onClick={onNodeClicked} />
-
-
-  // focused? (append stroke)
-  if (focused) {
-    console.log("..........");
-    let gap = N_WIDTH_FOCUS - N_WIDTH;
-    let rect_x2 = rect_x - gap / 2;
-    let rect_y2 = rect_y - gap / 2;
-    stroke_rect = <rect
-      key={fields.id + "_stroke"}
-      x={rect_x2} y={rect_y2}
-      width={N_WIDTH_FOCUS} height={N_WIDTH_FOCUS}
-      rx={N_CORNER + 2} ry={N_CORNER + 2}
-      style={{
-        stroke: get_node_color(fields),
-        fillOpacity: 0.0,
-        fill: CLR_BACKGROUND
-      }}
-      onClick={onNodeClicked} />
+    this.state = {
+      hover: false,
+    }
   }
 
-  // text
-  var font_weight = focused ? "bold" : "normal";
-  let text_style = {
-    fill: CLR_LINK_TEXT,
-    fontWeight: font_weight
-  };
-  let text = <text key={fields.id + "_text"} x={x} y={y} dy={-12} textAnchor={"middle"} style={text_style}>{fields.id}</text>
+  renderRects() {
+    const { position, node, focused } = this.props;
+    const { hover } = this.state;
+    const { x, y } = position;
 
-  return [rect, stroke_rect, text]
+    // rect
+    let width = hover ? N_WIDTH_FOCUS : N_WIDTH;
+    let rounded = hover ? N_CORNER + 2 : N_CORNER;
+    let rect_x = x - (width / 2), rect_y = y - (width / 2);
+    let rect = <rect
+      key={node.id + "_rect"}
+      x={rect_x} y={rect_y}
+      width={width} height={width}
+      rx={rounded} ry={rounded}
+      style={{
+        fill: get_node_color(node),
+      }}
+      onClick={this.props.onNodeClicked}
+      onMouseOver={_ => this.onNodeOver(node)}
+      onMouseOut={_ => this.onNodeOut(node)} />
+
+
+    // focused? (append stroke)
+    let stroke_rect = null;
+    if (focused) {
+      let gap = N_WIDTH_FOCUS - N_WIDTH;
+      let stroke_width = hover ? 0.0 : 1.5;
+      let fill_opacity = hover ? 0.0 : 1.0;
+
+      stroke_rect = <rect
+        key={node.id + "_stroke"}
+        x={rect_x - gap / 2} y={rect_y - gap / 2}
+        width={N_WIDTH_FOCUS} height={N_WIDTH_FOCUS}
+        rx={N_CORNER + 2} ry={N_CORNER + 2}
+        style={{
+          stroke: get_node_color(node),
+          strokeWidth: stroke_width,
+          fillOpacity: fill_opacity,
+          fill: CLR_BACKGROUND
+        }}
+        onClick={this.props.onNodeClicked}
+        onMouseOver={_ => this.onNodeOver(node)}
+        onMouseOut={_ => this.onNodeOut(node)} />
+    }
+    return [stroke_rect, rect]
+  }
+
+  renderText() {
+    const { position, node, focused } = this.props;
+    const { x, y } = position;
+    // text
+    var font_weight = focused ? "bold" : "normal";
+    let text_style = {
+      fill: CLR_LINK_TEXT,
+      fontWeight: font_weight
+    };
+    let text = <text key={node.id + "_text"} x={x} y={y} dy={-12} textAnchor={"middle"} style={text_style}>{node.id}</text>
+    return text;
+  }
+
+  renderInfoBox() {
+    return null;
+  }
+
+  onNodeOver() {
+    this.setState(prevState => {
+      prevState.hover = true;
+      return prevState;
+    });
+  }
+
+  onNodeOut() {
+    this.setState(prevState => {
+      prevState.hover = false;
+      return prevState;
+    });
+  }
+
+  render() {
+    let { hover } = this.state;
+    let hoverView = hover ? renderHoverView(this.props.node, this.props.position, false) : null;
+    return [hoverView, this.renderRects(), this.renderText(), this.renderInfoBox()];
+  }
 }
 
 export default Node;

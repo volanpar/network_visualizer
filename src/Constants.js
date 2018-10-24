@@ -18,10 +18,9 @@ export const N_WIDTH_FOCUS = 18; // when focused
 export const N_FONT_SIZE = 8;
 
 export const INFO_CORNER = 6; // rounded corner background
-export const INFO_GAP_N = 28; // gap between node/synapse and info window
-export const INFO_GAP_E = 18; // gap between node/synapse and info window
+export const INFO_GAP_N = 23; // gap between node/synapse and info window
+export const INFO_GAP_L = 18; // gap between node/synapse and info window
 
-export const LINEWIDTH = 1.0;
-export const LINEWIDTH_OPACITY = 0.1;
-export const LINEWIDTH_OPACITY_FOCUS = 0.6;
+export const LINEWIDTH = 0.1;
+export const LINEWIDTH_FOCUS = 0.9;
 export const LINK_FONT_SIZE = 7;
