@@ -96,17 +96,19 @@ class Link extends React.Component {
     }
 
     render() {
-        let { hover } = this.state;
         let hoverView = null;
-        if (hover) {
-            let { fromPos, toPos } = this.props;
-            let position = {
-                x: fromPos.x + ((toPos.x - fromPos.x) / 2),
-                y: fromPos.y + ((toPos.y - fromPos.y) / 2),
-            };
-            hoverView = renderHoverView(this.props.link, position, true);
-        }
 
+        // BUG: HOVERVIEW ARE DRAWING NODES "OVER" HOVERVIEW, NOT A BIG DEAL,
+        // BUT NEEDS TO BE FIXED.
+        // let { hover } = this.state;
+        // if (hover) {
+        //     let { fromPos, toPos } = this.props;
+        //     let position = {
+        //         x: fromPos.x + ((toPos.x - fromPos.x) / 2),
+        //         y: fromPos.y + ((toPos.y - fromPos.y) / 2),
+        //     };
+        //     hoverView = renderHoverView(this.props.link, position, true);
+        // }
 
         return [hoverView, this.renderLine(), this.renderText()];
     }
