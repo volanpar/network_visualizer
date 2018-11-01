@@ -22,5 +22,5 @@ export const INFO_GAP_N = 23; // gap between node/synapse and info window
 export const INFO_GAP_L = 18; // gap between node/synapse and info window
 
 export const LINEWIDTH = 0.1;
-export const LINEWIDTH_FOCUS = 0.9;
+export const LINEWIDTH_FOCUS = 1.5;
 export const LINK_FONT_SIZE = 7;

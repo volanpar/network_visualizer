@@ -35,8 +35,13 @@ class Link extends React.Component {
         const { hover } = this.state;
 
         // line
-        let linewidth = focused || hover ? LINEWIDTH_FOCUS : LINEWIDTH;
+        let linewidth = LINEWIDTH;
+        if (link.hasOwnProperty("__weight")) {
+            linewidth = link.__weight;
+        }
+        linewidth = focused || hover ? LINEWIDTH_FOCUS : linewidth;
         let line = <line
+            key={link.id + "_line"}
             x1={fromPos.x} y1={fromPos.y}
             x2={toPos.x} y2={toPos.y}
             style={{
