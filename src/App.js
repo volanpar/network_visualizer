@@ -195,7 +195,8 @@ class App extends Component {
         nodes[idx].__layer = layer_index;
 
         // hidden layer full?
-        if (++n_in_layer >= this.state.n_nodes_layer) {
+        console.log("NUM: ", this.state.meta.n_nodes_layer);
+        if (++n_in_layer >= this.state.meta.n_nodes_layer) {
           layer_index++;
           n_in_layer = 0;
         }
