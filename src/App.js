@@ -30,6 +30,7 @@ class App extends Component {
 
     this.onFileUpdated = this.onFileUpdated.bind(this);
     this.parseMeta = this.parseMeta.bind(this);
+    this.find_layers = this.find_layers.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.onNodeClicked = this.onNodeClicked.bind(this);
   }
@@ -176,6 +177,45 @@ class App extends Component {
     }
   }
 
+  find_layers(nodes) {
+    // input and hidden
+    var layer_index = 1, n_in_layer = 0;
+    for (let [idx, node] of nodes.entries()) {
+      // layer allready specified?
+      if (node.hasOwnProperty("__layer")) {
+        continue;
+      }
+
+      // input?
+      if (node.__type === "input") {
+        nodes[idx].__layer = 0;
+      }
+      // hidden?
+      if (node.__type === "hidden") {
+        nodes[idx].__layer = layer_index;
+
+        // hidden layer full?
+        if (++n_in_layer >= this.state.n_nodes_layer) {
+          layer_index++;
+          n_in_layer = 0;
+        }
+      }
+    }
+
+    // output
+    var inc = n_in_layer ? 1 : 0;
+    for (let [idx, node] of nodes.entries()) {
+      // layer allready specified?
+      if (node.hasOwnProperty("__layer")) {
+        continue;
+      }
+
+      if (node.__type === "output") {
+        nodes[idx].__layer = layer_index + inc;
+      }
+    }
+  }
+
 
   // RENDERING
   renderNetwork() {
@@ -188,6 +228,7 @@ class App extends Component {
     let links = this.state.currentNetwork.links;
 
     // calculate positions of all nodes
+    this.find_layers(nodes);
     let nodePositions = this.calculate_node_coordinates(nodes);
 
     // convert nodes to dom objects
