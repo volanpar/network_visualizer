@@ -4,12 +4,13 @@ export const HEIGHT = window.innerHeight * 10;
 export const CLR_BACKGROUND = "#f1f1f1";
 
 export const CLR_NODE = "#24628c";
-export const CLR_NODE_ACTIVATED = "red";
+export const CLR_NODE_ACTIVATED = "#ff0032";
 export const CLR_INPUT_NODE = "#258c8c";
 export const CLR_OUTPUT_NODE = "#8c2488";
 export const CLR_REWARD_NODE = "#8c8c24";
 
 export const CLR_LINK = "#505a60";
+export const CLR_LINK_FOCUS = "#ff0032";
 export const CLR_LINK_TEXT = "#444444";
 
 export const N_CORNER = 3; // rounded corner

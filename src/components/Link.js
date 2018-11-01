@@ -1,5 +1,5 @@
 import React from 'react';
-import { LINK_FONT_SIZE, LINEWIDTH_FOCUS, LINEWIDTH, CLR_LINK, CLR_LINK_TEXT } from '../Constants';
+import { LINK_FONT_SIZE, LINEWIDTH_FOCUS, LINEWIDTH, CLR_LINK, CLR_LINK_TEXT, CLR_LINK_FOCUS } from '../Constants';
 import { renderHoverView } from './HoverView';
 
 
@@ -35,17 +35,26 @@ class Link extends React.Component {
         const { hover } = this.state;
 
         // line
+        let color = CLR_LINK;
         let linewidth = LINEWIDTH;
         if (link.hasOwnProperty("__weight")) {
             linewidth = link.__weight;
         }
-        linewidth = focused || hover ? LINEWIDTH_FOCUS : linewidth;
+
+        // width > 1.0
+        if (linewidth > 1.0) {
+            linewidth = 1.0;
+        }
+        if (focused || hover) {
+            linewidth = LINEWIDTH_FOCUS;
+            color = CLR_LINK_FOCUS;
+        }
         let line = <line
             key={link.id + "_line"}
             x1={fromPos.x} y1={fromPos.y}
             x2={toPos.x} y2={toPos.y}
             style={{
-                stroke: CLR_LINK,
+                stroke: color,
                 strokeWidth: linewidth,
             }}></line>;
 
