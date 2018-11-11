@@ -14,7 +14,7 @@ class App extends Component {
     this.margin = 100;
     this.default_hspace = 150;
     this.default_vspace = 100;
-    this.default_n_node_layer = 10;
+    this.default_n_node_layer = 1000000;
 
     this.state = {
       index: 0,
