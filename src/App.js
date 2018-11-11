@@ -180,9 +180,13 @@ class App extends Component {
   find_layers(nodes) {
     // input and hidden
     var layer_index = 1, n_in_layer = 0;
+    var max_layer_count = 0;
     for (let [idx, node] of nodes.entries()) {
       // layer allready specified?
       if (node.hasOwnProperty("__layer")) {
+        if (node.__layer > max_layer_count) {
+          max_layer_count = node.__layer;
+        }
         continue;
       }
 
@@ -204,15 +208,25 @@ class App extends Component {
 
     // output
     var inc = n_in_layer ? 1 : 0;
+    var output_layer_index = layer_index + inc;
+    if (max_layer_count >= output_layer_index) {
+      output_layer_index = max_layer_count + 1;
+    }
+
     for (let [idx, node] of nodes.entries()) {
       // layer allready specified?
       if (node.hasOwnProperty("__layer")) {
+        if (node.__layer === -1) {
+          if (node.__type === "output") {
+            nodes[idx].__layer = output_layer_index;
+          }
+        }
         continue;
       }
-
       if (node.__type === "output") {
-        nodes[idx].__layer = layer_index + inc;
+        nodes[idx].__layer = output_layer_index;
       }
+
     }
   }
 
@@ -272,7 +286,7 @@ class App extends Component {
       <div className="App">
         <input type="file" id="fileInput" onChange={this.onFileUpdated} />
         {this.renderInfoView()}
-        <svg width={WIDTH} height={HEIGHT}>
+        <svg id={"svg_view"} width={WIDTH} height={WIDTH}>
           {this.renderNetwork()}
         </svg>
       </div>
