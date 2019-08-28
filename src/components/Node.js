@@ -1,5 +1,5 @@
 import React from 'react';
-import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_BACKGROUND } from '../Constants';
+import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_BACKGROUND, CLR_LINK_TEXT_SUBID } from '../Constants';
 import { get_node_color } from '../Color';
 import { renderHoverView } from './HoverView';
 
@@ -71,8 +71,15 @@ class Node extends React.Component {
       fill: CLR_LINK_TEXT,
       fontWeight: font_weight
     };
+    let text_style2 = {
+      fill: CLR_LINK_TEXT_SUBID,
+      fontWeight: "normal",
+      fontStyle: "italic",
+      fontSize: 8,
+    };
     let text = <text key={node.id + "_text"} x={x} y={y} dy={-12} textAnchor={"middle"} style={text_style}>{node.id}</text>
-    return text;
+    let text2 = <text key={node.sub_id + "_text"} x={x} y={y} dy={+18} textAnchor={"middle"} style={text_style2}>{node.sub_id}</text>
+    return [text, text2];
   }
 
   renderInfoBox() {

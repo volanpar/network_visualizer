@@ -12,6 +12,7 @@ export const CLR_REWARD_NODE = "#8c8c24";
 export const CLR_LINK = "#505a60";
 export const CLR_LINK_FOCUS = "#ff0032";
 export const CLR_LINK_TEXT = "#444444";
+export const CLR_LINK_TEXT_SUBID = "#757575";
 
 export const N_CORNER = 3; // rounded corner
 export const N_WIDTH = 12; // NODE width
