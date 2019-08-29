@@ -78,7 +78,7 @@ class Node extends React.Component {
       fontSize: 8,
     };
     let text = <text key={node.id + "_text"} x={x} y={y} dy={-12} textAnchor={"middle"} style={text_style}>{node.id}</text>
-    let text2 = <text key={node.sub_id + "_text"} x={x} y={y} dy={+18} textAnchor={"middle"} style={text_style2}>{node.sub_id}</text>
+    let text2 = <text key={node.__sub_id + "_text"} x={x} y={y} dy={+18} textAnchor={"middle"} style={text_style2}>{node.__sub_id}</text>
     return [text, text2];
   }
 
