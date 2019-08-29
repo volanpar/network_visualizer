@@ -1,21 +1,59 @@
 # Network Visualizer
-Powerful network/graph visualiser written in Node.js.
+Powerful network/graph visualizer written in Node.js.
+
+
+![example-network](example-network.png)
 
 ## Supports
-- High performance for uhge networks (>1'000 nodes and >10'000 edges)
+- High performance for huge networks (>1'000 nodes and >10'000 edges)
 - Changes over time (sequenced data)
-- Arbitrary number of Node-atttributes
+- Arbitrary number of Node-attributes
 - Interactive design elements
 
 ## How To
-```node
-npm install
-npm start
+1.  Install packages and run Node.js
+    ```node
+    npm install
+    npm start
+    ```
+2. In Node app, open you exported .json file (see [how to do format](##JSON-Format) below)
+3. Use left- and right arrows to navigate forward/backward in sequence.
+
+
+## Sequence Manager
+Manager written in Rust to help format the .json input file in the correct way. Se [SequenceManager](https://github.com/volanpar/sequence_manager) for more details.
+
+## JSON Format
+```json
+{
+    "meta": {
+        "filters": {
+            "link": {}
+        },
+        "properties": {
+            "column-spacing": 200,
+            "nodes-per-layer": 50,
+            "row-spacing": 150
+        }
+    },
+    "sequence": [
+        {
+            "nodes": [nodes-json-list],
+            "links": [edge-json-list]
+        },
+        {
+            "nodes": [nodes-json-list2],
+            "links": [edge-json-list2]
+        },
+        .
+        .
+        .
+    ]
+}
+
 ```
 
-
-
-## JSON Format for Nodes
+## Node JSON List
 ### Attributes
 - #### Reserved
     - **id**: [Mandatory] Node identifier (only integer)
@@ -55,7 +93,7 @@ npm start
 ]
 ```
 
-## JSON Format for Edges
+## Edge JSON List
 ### Attributes
 - #### Reserved
     - **source** [Mandatory] Pre-node in edge
