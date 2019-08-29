@@ -69,7 +69,7 @@ class App extends Component {
 
       // set new state
       this.setState(_ => {
-        return { index: 0, sequence, meta, currentNetwork, focusedNodes };
+        return { index: 0, sequence, meta, currentNetwork, focusedNodes, n_focused: 0 };
       });
     }
 
@@ -163,15 +163,17 @@ class App extends Component {
   }
 
   onNodeClicked(id) {
-    let focused = this.state.focusedNodes[id];
-    if (!focused) {
+    let focused_node = this.state.focusedNodes[id];
+    if (!focused_node) {
       this.setState(prevState => {
         prevState.focusedNodes[id] = true;
+        prevState.n_focused += 1;
         return prevState
       })
     } else {
       this.setState(prevState => {
         prevState.focusedNodes[id] = false;
+        prevState.n_focused -= 1;
         return prevState
       })
     }
@@ -267,7 +269,8 @@ class App extends Component {
         key={link.source + ":" + link.target}
         fromPos={fromPos} toPos={toPos}
         link={link}
-        focused={focused} />;
+        focused={focused} 
+        n_focused={this.state.n_focused} />;
     });
 
     // return all dom objects

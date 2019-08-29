@@ -31,12 +31,13 @@ class Link extends React.Component {
     }
 
     renderLine() {
-        const { fromPos, toPos, link, focused } = this.props;
+        const { fromPos, toPos, link, focused, n_focused } = this.props;
         const { hover } = this.state;
 
         // line
         let color = CLR_LINK;
         let linewidth = LINEWIDTH;
+        let display_style = 'block'
         if (link.hasOwnProperty("__weight")) {
             linewidth = link.__weight;
         }
@@ -49,6 +50,13 @@ class Link extends React.Component {
             linewidth = LINEWIDTH_FOCUS;
             color = CLR_LINK_FOCUS;
         }
+
+        // this is true if any other are focused
+        if (n_focused > 0 && !focused) {
+            display_style = 'none';
+        } 
+
+        // return HTML line
         let line = <line
             key={link.id + "_line"}
             x1={fromPos.x} y1={fromPos.y}
@@ -56,13 +64,13 @@ class Link extends React.Component {
             style={{
                 stroke: color,
                 strokeWidth: linewidth,
+                display: display_style,
             }}></line>;
-
         return line;
     }
 
     renderText() {
-        const { fromPos, toPos, link, focused } = this.props;
+        const { fromPos, toPos, link, focused, n_focused } = this.props;
         const { hover } = this.state;
 
         // text
@@ -74,7 +82,11 @@ class Link extends React.Component {
             diff_y = +10;
         }
 
-        var font_weight = hover ? "bold" : "normal";
+        let font_weight = hover ? "bold" : "normal";
+
+        // this is true if any other are focused
+        let display_style = (n_focused > 0 && !focused) ? 'none' : 'block';
+
         let text = <text
             key={link.id + "_text"}
             x={tx} y={ty}
@@ -85,7 +97,8 @@ class Link extends React.Component {
                 fontSize: LINK_FONT_SIZE,
                 fontWeight: font_weight,
                 fill: CLR_LINK_TEXT,
-                cursor: "pointer"
+                cursor: "pointer",
+                display: display_style
             }}
             onMouseOver={_ => this.onLineOver(link)}
             onMouseOut={_ => this.onLineOut(link)}
@@ -100,7 +113,8 @@ class Link extends React.Component {
             style={{
                 fill: CLR_LINK,
                 fontSize: 10,
-                cursor: "pointer"
+                cursor: "pointer",
+                display: display_style
             }}
             onMouseOver={_ => this.onLineOver(link)}
             onMouseOut={_ => this.onLineOut(link)}
