@@ -1,5 +1,5 @@
 import React from 'react';
-import { INFO_CORNER, INFO_GAP_N, INFO_GAP_L, N_FONT_SIZE, CLR_LINK_TEXT, CLR_BACKGROUND } from '../Constants';
+import { INFO_CORNER, INFO_GAP_N, INFO_GAP_L, N_FONT_SIZE, CLR_TEXT, CLR_BACKGROUND } from '../Constants';
 
 export function renderHoverView(elem, position, is_link) {
     const { x, y } = position;
@@ -47,7 +47,7 @@ export function renderHoverView(elem, position, is_link) {
         width={bg_width} height={bg_height}
         rx={INFO_CORNER} ry={INFO_CORNER}
         style={{
-            fill: CLR_LINK_TEXT,
+            fill: CLR_TEXT,
         }} />
 
     return [rect, text_array];

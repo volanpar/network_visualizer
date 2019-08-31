@@ -3,15 +3,16 @@ export const HEIGHT = window.innerHeight * 10;
 
 export const CLR_BACKGROUND = "#f1f1f1";
 
-export const CLR_NODE = "#24628c";
+export const CLR_NODE = "#858585";
 export const CLR_NODE_ACTIVATED = "#ff0032";
-export const CLR_INPUT_NODE = "#258c8c";
-export const CLR_OUTPUT_NODE = "#8c2488";
-export const CLR_REWARD_NODE = "#8c8c24";
+export const CLR_INPUT_NODE = "#3c4858";
+export const CLR_OUTPUT_NODE = "#cf4e88";
+export const CLR_EXTERNAL_NODE = "#cf8f4e";
 
-export const CLR_LINK = "#505a60";
-export const CLR_LINK_FOCUS = "#ff0032";
-export const CLR_LINK_TEXT = "#444444";
+export const CLR_LINK = "#bababa";
+export const CLR_LINK_FOCUS = "#999999";
+export const CLR_TEXT = "#2e2e2e";
+export const CLR_LINK_TEXT = "#8a8a8a";
 export const CLR_LINK_TEXT_SUBID = "#757575";
 
 export const N_CORNER = 3; // rounded corner
@@ -24,5 +25,5 @@ export const INFO_GAP_N = 23; // gap between node/synapse and info window
 export const INFO_GAP_L = 18; // gap between node/synapse and info window
 
 export const LINEWIDTH = 0.1;
-export const LINEWIDTH_FOCUS = 1.5;
+export const LINEWIDTH_FOCUS = 0.9;
 export const LINK_FONT_SIZE = 7;

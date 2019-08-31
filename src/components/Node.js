@@ -1,5 +1,5 @@
 import React from 'react';
-import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_BACKGROUND, CLR_LINK_TEXT_SUBID } from '../Constants';
+import { N_CORNER, N_WIDTH, N_WIDTH_FOCUS, CLR_LINK_TEXT, CLR_TEXT, CLR_BACKGROUND, CLR_LINK_TEXT_SUBID } from '../Constants';
 import { get_node_color } from '../Color';
 import { renderHoverView } from './HoverView';
 
@@ -68,11 +68,11 @@ class Node extends React.Component {
     // text
     var font_weight = focused ? "bold" : "normal";
     let text_style = {
-      fill: CLR_LINK_TEXT,
+      fill: CLR_TEXT,
       fontWeight: font_weight
     };
     let text_style2 = {
-      fill: CLR_LINK_TEXT_SUBID,
+      fill: CLR_TEXT,
       fontWeight: "normal",
       fontStyle: "italic",
       fontSize: 8,
