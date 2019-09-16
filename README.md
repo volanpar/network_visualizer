@@ -2,7 +2,7 @@
 Powerful network/graph visualizer written in Node.js.
 
 
-![example-network](example-network.png)
+![example-network](output.gif)
 
 ## Supports
 - High performance for huge networks (>1'000 nodes and >10'000 edges)
